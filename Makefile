@@ -9,12 +9,11 @@ solve: opt
 
 day ?= 01
 part ?= 1
-input ?= problem
 
-## Generate solution for one day by setting [day=N] [part=N] [input=test|problem]
+## Generate solution for one day by setting [day=N] [part=N]
 .PHONY: run
 run: opt
-	stack exec advent2022 -- -m $(day)/$(part)/$(input)
+	stack exec advent2022 -- -m $(day)/$(part)
 
 ## Build optimized
 .PHONY: opt

@@ -1,11 +1,9 @@
 module Advent.Parse
-  ( parseOrDie
-  , parseFile
+  ( parseIO
   , parseAll
   , token
   , sym
   , twoNewlines
-  , oneSpace
   , module X
   ) where
 
@@ -13,26 +11,28 @@ import Advent.Prelude
 
 import Data.Attoparsec.Text as X
 
-parseOrDie :: Parser a -> Text -> IO a
-parseOrDie parser = either die pure . parseAll parser
+parseIO :: Parser a -> Text -> IO a
+parseIO parser = either crash pure . parseAll parser
 
-parseFile :: Parser a -> FilePath -> IO a
-parseFile parser = parseOrDie parser <=< readFile
-
+-- | Parse all input
 parseAll :: Parser a -> Text -> Either Text a
 parseAll parser = mapLeft pack . parseOnly (trim parser <* endOfInput)
 
+-- | Parser that consumes leading and trailing whitespace
 trim :: Parser a -> Parser a
 trim parser = skipSpace *> parser <* skipSpace
 
+-- | Parser that consume trailing whitespace
 token :: Parser a -> Parser a
 token parser = parser <* skipSpace
 
+-- | Consume and discard a verbatim string
 sym :: Text -> Parser ()
 sym = void . token . string
 
-oneSpace :: Parser ()
-oneSpace = void (char ' ') <|> endOfLine
-
+-- | Consume two newlines
+--
+-- Many problem inputs are separated by two newlines
+--
 twoNewlines :: Parser ()
 twoNewlines = endOfLine *> endOfLine

@@ -1,14 +1,15 @@
 module Advent.Prelude
   ( module X
-  , die
+  , crash
   , forAccum
   , getProgName
   , lookupEnv
   , print
   , readCommaSep
   , readMaybe
-  , readOrDie
+  , readIO
   , tshow
+  , unwrap
   ) where
 
 import Prelude as X hiding
@@ -27,6 +28,7 @@ import Prelude as X hiding
   , putStrLn
   , putStrLn
   , readFile
+  , readIO
   , tail
   , takeWhile
   , unlines
@@ -72,7 +74,6 @@ import GHC.Generics as X (Generic)
 import Numeric.Natural as X
 import Safe as X
 import qualified System.Environment as Env
-import qualified System.Exit as Exit
 import System.FilePath as X
 import Test.Hspec as X
 import Test.Hspec.QuickCheck as X
@@ -89,7 +90,7 @@ forAccum s t f = foldM f s t
 
 -- | Unwrap a 'Maybe' or crash with message
 unwrap :: forall a . Text -> Maybe a -> IO a
-unwrap message = maybe (die message) pure
+unwrap message = maybe (crash message) pure
 
 -- | 'Show' to 'Text'
 tshow :: forall a . Show a => a -> Text
@@ -104,8 +105,8 @@ readMaybe :: forall a . Read a => Text -> Maybe a
 readMaybe = Read.readMaybe . unpack
 
 -- | 'Read' or crash with message
-readOrDie :: forall a . Read a => Text -> Text -> IO a
-readOrDie message = unwrap message . readMaybe
+readIO :: forall a . Read a => Text -> Text -> IO a
+readIO message = unwrap message . readMaybe
 
 -- | Parse comma-separate data from 'Text'
 readCommaSep :: Read a => Text -> [a]
@@ -120,5 +121,5 @@ getProgName :: IO Text
 getProgName = pack <$> Env.getProgName
 
 -- | Crash with message
-die :: Text -> IO a
-die = Exit.die . unpack
+crash :: Text -> IO a
+crash = throwIO . userError . unpack

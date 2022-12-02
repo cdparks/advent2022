@@ -4,27 +4,18 @@ module Advent.Day01Spec
 
 import Advent.Prelude
 
+import Advent.Input
 import Advent.Parse
 
 spec :: Spec
-spec = do
-  describe "1" $ do
-    it "test" $ do
-      groups <- parseFile parseGroups "inputs/test01"
-      part1 groups `shouldBe` 24000
+spec = beforeAll (parseInputs parseGroups 1) $ do
+  it "1" $ \Input{..} -> do
+    part1 testInput `shouldBe` 24000
+    part1 problemInput `shouldBe` 69795
 
-    it "problem" $ do
-      groups <- parseFile parseGroups "inputs/day01"
-      part1 groups `shouldBe` 69795
-
-  describe "2" $ do
-    it "test" $ do
-      groups <- parseFile parseGroups "inputs/test01"
-      part2 groups `shouldBe` 45000
-
-    it "problem" $ do
-      groups <- parseFile parseGroups "inputs/day01"
-      part2 groups `shouldBe` 208437
+  it "2" $ \Input{..} -> do
+    part2 testInput `shouldBe` 45000
+    part2 problemInput `shouldBe` 208437
 
 -- | Sum of largest group
 part1 :: [[Int]] -> Int
@@ -34,13 +25,12 @@ part1 = maximum . fmap sum
 part2 :: [[Int]] -> Int
 part2 = done . foldl' step (0, 0, 0) . fmap sum
  where
-  done (t1, t2, t3) = sum [t1, t2, t3]
-
-  step (t1, t2, t3) i
-    | i < t1 = (t1, t2, t3)
-    | i < t2 = (i, t2, t3)
-    | i < t3 = (t2, i, t3)
-    | otherwise = (t2, t3, i)
+  done (x, y, z) = x + y + z
+  step (x, y, z) i
+    | i < x     = (x, y, z)
+    | i < y     = (i, y, z)
+    | i < z     = (y, i, z)
+    | otherwise = (y, z, i)
 
 -- | Parse groups separated by newlines
 parseGroups :: Parser [[Int]]
