@@ -2,6 +2,8 @@
 
 module Advent.Input
   ( Input(..)
+  , parsing
+  , reading
   , parseInputs
   , readInputs
   ) where
@@ -22,6 +24,14 @@ readInputs day = Input
   <*> readFile ("inputs" </> "day" <> formatted)
  where
   formatted = printf "%02d" day
+
+-- | Parse inputs before all tests in a spec group run
+parsing :: Parser a -> Int -> SpecWith (Input a) -> Spec
+parsing parser = beforeAll . parseInputs parser
+
+-- | Read inputs before all tests in a spec group run
+reading :: Int -> SpecWith (Input Text) -> Spec
+reading = beforeAll . readInputs
 
 -- | Some test and problem input data
 data Input a = Input

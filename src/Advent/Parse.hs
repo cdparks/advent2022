@@ -9,7 +9,7 @@ module Advent.Parse
 
 import Advent.Prelude
 
-import Data.Attoparsec.Text as X
+import Data.Attoparsec.Text as X hiding (Number(..))
 
 parseIO :: Parser a -> Text -> IO a
 parseIO parser = either crash pure . parseAll parser

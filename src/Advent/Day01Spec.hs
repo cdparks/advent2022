@@ -8,7 +8,7 @@ import Advent.Input
 import Advent.Parse
 
 spec :: Spec
-spec = beforeAll (parseInputs parseGroups 1) $ do
+spec = parsing parseGroups 1 $ do
   it "1" $ \Input{..} -> do
     part1 testInput `shouldBe` 24000
     part1 problemInput `shouldBe` 69795
