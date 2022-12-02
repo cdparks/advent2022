@@ -35,7 +35,7 @@ reading = beforeAll . readInputs
 
 -- | Some test and problem input data
 data Input a = Input
-  { testInput :: a
-  , problemInput :: a
+  { example :: a
+  , problem :: a
   }
   deriving (Functor, Foldable, Traversable)

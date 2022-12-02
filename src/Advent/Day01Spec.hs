@@ -10,12 +10,12 @@ import Advent.Parse
 spec :: Spec
 spec = parsing parseGroups 1 $ do
   it "1" $ \Input{..} -> do
-    part1 testInput `shouldBe` 24000
-    part1 problemInput `shouldBe` 69795
+    part1 example `shouldBe` 24000
+    part1 problem `shouldBe` 69795
 
   it "2" $ \Input{..} -> do
-    part2 testInput `shouldBe` 45000
-    part2 problemInput `shouldBe` 208437
+    part2 example `shouldBe` 45000
+    part2 problem `shouldBe` 208437
 
 -- | Sum of largest group
 part1 :: [[Int]] -> Int

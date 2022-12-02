@@ -10,12 +10,12 @@ import Advent.Parse
 spec :: Spec
 spec = parsing parseRounds 2 $ do
   it "1" $ \Input{..} -> do
-    part1 testInput `shouldBe` 15
-    part1 problemInput `shouldBe` 15691
+    part1 example `shouldBe` 15
+    part1 problem `shouldBe` 15691
 
   it "2" $ \Input{..} -> do
-    part2 testInput `shouldBe` 12
-    part2 problemInput `shouldBe` 12989
+    part2 example `shouldBe` 12
+    part2 problem `shouldBe` 12989
 
 -- | Interpret each round as "play this move"
 part1 :: [(Move, XYZ)] -> Int

@@ -75,7 +75,7 @@ import Numeric.Natural as X
 import Safe as X
 import qualified System.Environment as Env
 import System.FilePath as X
-import Test.Hspec as X
+import Test.Hspec as X hiding (example)
 import Test.Hspec.QuickCheck as X
 import Test.Hspec.Runner as X (hspecWith, defaultConfig, Config, configFormatter)
 import Test.Hspec.Formatters as X (specdoc, progress)
