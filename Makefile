@@ -2,7 +2,7 @@ MAKEFLAGS += --no-builtin-rules
 .SUFFIXES:
 .DEFAULT_GOAL := help
 
-## Generate and test all solutions
+## Test all solutions
 .PHONY: solve
 solve: opt
 	stack exec advent2022
@@ -10,7 +10,7 @@ solve: opt
 day ?= 01
 part ?= 1
 
-## Generate solution for one day by setting [day=N] [part=N]
+## Test a solution for one day by setting [day=N] [part=N]
 .PHONY: run
 run: opt
 	stack exec advent2022 -- -m $(day)/$(part)
@@ -48,7 +48,7 @@ clean:
 
 # Produce help output for Makefile
 #
-# Doc blocks are signified with ##
+# Doc blocks begin with ##
 #
 # Sections can be added with ## -- Section --
 #
