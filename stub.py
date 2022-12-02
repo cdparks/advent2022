@@ -51,16 +51,26 @@ import Advent.Input
 
 spec :: Spec
 spec = reading {day} $ do
-  it "1" $ \\Input{{}} ->
-    pending
+  it "1" $ \\Input{{..}} -> do
+    pendingWith "not implemented"
+    part1 example `shouldBe` ""
+    part1 problem `shouldBe` ""
 
-  it "2" $ \\Input{{}} ->
-    pending
+  it "2" $ \\Input{{..}} -> do
+    pendingWith "not implemented"
+    part2 example `shouldBe` ""
+    part2 problem `shouldBe` ""
+
+part1 :: Text -> Text
+part1 = id
+
+part2 :: Text -> Text
+part2 = id
 '''
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='stub out Day{DAY}Spec.hs modules and empty input files')
     parser.add_argument('days', nargs='+', type=parseDay, metavar='DAY', help='day within the closed interval [1..25]')
-    parser.add_argument('--force', action='store_true', help='overwrite extant modules')
+    parser.add_argument('-f', '--force', action='store_true', help='overwrite extant modules')
     args = parser.parse_args()
     main(args.days, parser.error, args.force)

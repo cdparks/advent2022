@@ -61,27 +61,27 @@ Use the `stub.py` script to stub out a new module:
 
 ```console
 $ ./stub.py -h
-usage: stub.py [-h] [--force] DAY [DAY ...]
+usage: stub.py [-h] [-f] DAY [DAY ...]
 
 stub out Day{DAY}Spec.hs modules and empty input files
 
 positional arguments:
-  DAY         day within the closed interval [1..25]
+  DAY          day within the closed interval [1..25]
 
 optional arguments:
-  -h, --help  show this help message and exit
-  --force     overwrite extant modules
+  -h, --help   show this help message and exit
+  -f, --force  overwrite extant modules
 ```
 
 Note that by default the script will avoid overwriting extant modules:
 
 ```console
 $ ./stub.py 1 2
-usage: stub.py [-h] [--force] DAY [DAY ...]
+usage: stub.py [-h] [-f] DAY [DAY ...]
 stub.py: error: cowardly refusing to overwrite src/Advent/Day01Spec.hs, src/Advent/Day02Spec.hs
 ```
 
-`--force` can be used to override this:
+Override this behavior with `-f`/`--force`:
 
 ```console
 $ ./stub.py 1 2 --force
