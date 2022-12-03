@@ -39,6 +39,7 @@ default-extensions:
   - TupleSections
   - TypeApplications
   - TypeFamilies
+  - ViewPatterns
 
 dependencies:
 - base >= 4.7 && < 5

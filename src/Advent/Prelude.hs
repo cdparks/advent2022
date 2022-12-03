@@ -60,6 +60,7 @@ import Data.List.Extra as X (maximumOn, minimumOn, nubOrd)
 import Data.List.NonEmpty as X (NonEmpty(..))
 import Data.Map.Strict as X (Map)
 import Data.Maybe as X
+import Data.Ord as X
 import Data.Proxy as X (Proxy(..))
 import Data.Sequence as X (Seq)
 import Data.Set as X (Set)

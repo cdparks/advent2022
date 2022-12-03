@@ -24,9 +24,12 @@ source-repository head
 
 library
   exposed-modules:
+      Advent.Counter
       Advent.Day01Spec
       Advent.Day02Spec
+      Advent.Day03Spec
       Advent.Input
+      Advent.List
       Advent.Parse
       Advent.Prelude
       Spec
@@ -61,6 +64,7 @@ library
       TupleSections
       TypeApplications
       TypeFamilies
+      ViewPatterns
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       JuicyPixels
@@ -119,6 +123,7 @@ executable advent2022
       TupleSections
       TypeApplications
       TypeFamilies
+      ViewPatterns
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       advent2022
