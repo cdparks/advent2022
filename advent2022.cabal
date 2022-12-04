@@ -28,7 +28,9 @@ library
       Advent.Day01Spec
       Advent.Day02Spec
       Advent.Day03Spec
+      Advent.Day04Spec
       Advent.Input
+      Advent.Interval
       Advent.List
       Advent.Parse
       Advent.Prelude

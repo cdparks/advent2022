@@ -34,7 +34,7 @@ update:
 .PHONY: update.stack
 update.stack:
 	stack setup
-	stack build --fast --test --no-run-tests --dependencies-only
+	stack build --fast --dependencies-only
 
 ## Install additional tooling
 .PHONY: update.tools
