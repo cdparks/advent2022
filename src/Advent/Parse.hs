@@ -16,11 +16,7 @@ parseIO parser = either crash pure . parseAll parser
 
 -- | Parse all input
 parseAll :: Parser a -> Text -> Either Text a
-parseAll parser = mapLeft pack . parseOnly (trim parser <* endOfInput)
-
--- | Parser that consumes leading and trailing whitespace
-trim :: Parser a -> Parser a
-trim parser = skipSpace *> parser <* skipSpace
+parseAll parser = mapLeft pack . parseOnly (parser <* skipSpace <* endOfInput)
 
 -- | Parser that consume trailing whitespace
 token :: Parser a -> Parser a
