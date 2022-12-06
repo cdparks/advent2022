@@ -1,15 +1,18 @@
 module Advent.Counter
   ( Counter
   , empty
-  , insert
+  , increment
+  , decrement
   , union
   , intersection
   , unions
   , intersections
   , counts
-  , into
+  , size
   , mostCommon
   , leastCommon
+  , into
+  , fromList
   ) where
 
 import Advent.Prelude hiding (empty)
@@ -23,15 +26,31 @@ newtype Counter k = Counter
   }
   deriving newtype (Eq, Show, Ord)
 
+instance Hashable k => Semigroup (Counter k) where
+  (<>) = union
+  {-# INLINE (<>) #-}
+
+instance Hashable k => Monoid (Counter k) where
+  mempty = empty
+  {-# INLINE mempty #-}
+
 -- | Empty 'Counter'
 empty :: Hashable k => Counter k
 empty = Counter mempty
 {-# INLINE empty #-}
 
--- | Add an element to a 'Counter'
-insert :: Hashable k => k -> Counter k -> Counter k
-insert k = Counter . HashMap.insertWith (+) k 1 . unCounter
-{-# INLINE insert #-}
+-- | Increment an element's count
+increment :: Hashable k => k -> Counter k -> Counter k
+increment k = Counter . HashMap.insertWith (+) k 1 . unCounter
+{-# INLINE increment #-}
+
+-- | Decrement an element's count
+decrement :: Hashable k => k -> Counter k -> Counter k
+decrement k = Counter . HashMap.alter dec k . unCounter
+ where
+  dec mv = do
+    v <- mv
+    pred v <$ guard (v > 1)
 
 -- | Union of two 'Counter's
 union :: Hashable k => Counter k -> Counter k -> Counter k
@@ -63,6 +82,11 @@ counts :: Counter k -> [(k, Int)]
 counts = HashMap.toList . unCounter
 {-# INLINE counts #-}
 
+-- | Number of elements being tracked
+size :: Counter k -> Int
+size = HashMap.size . unCounter
+{-# INLINE size #-}
+
 -- | Retrieve keys from most to least common
 mostCommon :: Counter k -> [k]
 mostCommon = sorted (Down . snd)
@@ -78,7 +102,12 @@ sorted :: Ord v => ((k, Int) -> v) -> Counter k -> [k]
 sorted project = fmap fst . sortOn project . counts
 {-# INLINE sorted #-}
 
--- | Build a 'Counter' from a list
+-- | Build a 'Counter' from a sequence
 into :: (Hashable k, Foldable f) => f k -> Counter k
-into = Counter . HashMap.fromListWith (+) . fmap (,1) . Foldable.toList
+into = fromList . Foldable.toList
 {-# INLINE into #-}
+
+-- | Build a 'Counter' from a list
+fromList :: Hashable k => [k] -> Counter k
+fromList = Counter . HashMap.fromListWith (+) . fmap (,1)
+{-# INLINE fromList #-}

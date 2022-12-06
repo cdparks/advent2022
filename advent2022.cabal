@@ -25,11 +25,13 @@ source-repository head
 library
   exposed-modules:
       Advent.Counter
+      Advent.CountingQueue
       Advent.Day01Spec
       Advent.Day02Spec
       Advent.Day03Spec
       Advent.Day04Spec
       Advent.Day05Spec
+      Advent.Day06Spec
       Advent.Input
       Advent.Interval
       Advent.List

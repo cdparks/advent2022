@@ -7,4 +7,4 @@ import Advent.Prelude
 import Spec (spec)
 
 main :: IO ()
-main = hspec spec
+main = hspec $ parallel spec
