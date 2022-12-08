@@ -44,6 +44,8 @@ import Control.Monad as X
 import Control.Monad.IO.Unlift as X
 import Control.Monad.State.Strict as X
 import Data.Bifunctor as X
+import Data.Bifoldable as X
+import Data.Bitraversable as X
 import Data.Bool as X (bool)
 import Data.Char as X
 import Data.Either as X
@@ -70,6 +72,7 @@ import Data.Time.Clock as X
 import Data.Traversable as X
 import Data.Vector as X (Vector)
 import Data.Void as X (Void)
+import Data.Word as X
 import Debug.Trace as X
 import GHC.Generics as X (Generic)
 import Numeric.Natural as X
