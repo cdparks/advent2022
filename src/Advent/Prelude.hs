@@ -30,7 +30,6 @@ import Prelude as X hiding
   , readFile
   , readIO
   , tail
-  , takeWhile
   , unlines
   , unwords
   , words
