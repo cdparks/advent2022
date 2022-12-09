@@ -34,12 +34,14 @@ library
       Advent.Day06Spec
       Advent.Day07Spec
       Advent.Day08Spec
+      Advent.Day09Spec
       Advent.Input
       Advent.Interval
       Advent.List
       Advent.Parse
       Advent.Prelude
       Advent.Trie
+      Advent.Vec2
       Spec
   other-modules:
       Paths_advent2022
