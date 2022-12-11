@@ -7,7 +7,8 @@ import Advent.Prelude
 import Advent.Input
 import Advent.Parse (Parser, digit, sepBy1, endOfLine)
 import qualified Data.HashMap.Strict as HashMap
-import Advent.Vec2 (Vec2(..))
+import Advent.Vec2 (Vec2)
+import qualified Advent.Vec2 as Vec2
 
 spec :: Spec
 spec = parsing parseGrid 8 $ do
@@ -39,7 +40,7 @@ data Direction = N | E | S | W
 -- | Stream of all predecessors or successors of initial position in
 -- some direction
 scan :: Grid -> Vec2 Int -> Direction -> [Int]
-scan grid (Vec2 j i) = \case
+scan grid (Vec2.toPair -> (j, i)) = \case
   N -> pick (repeat j) (preds  i)
   E -> pick (succs  j) (repeat i)
   S -> pick (repeat j) (succs  i)
@@ -47,7 +48,7 @@ scan grid (Vec2 j i) = \case
  where
   succs x = [x + 1 .. ]
   preds x = [x - 1, x - 2 .. ]
-  pick xs = takeWhileJust . fmap (`HashMap.lookup` grid) . zipWith Vec2 xs
+  pick xs = takeWhileJust . fmap (`HashMap.lookup` grid) . zipWith Vec2.new xs
 
 -- | Score is the number of sequential trees (<) x, plus one for the
 -- first tree that is (>=) x, if any.
@@ -76,6 +77,6 @@ toGrid :: [[Int]] -> Grid
 toGrid xxs = HashMap.fromList $ do
   (i, xs) <- zip [0..] xxs
   (j, x) <- zip [0..] xs
-  pure (Vec2 j i, x)
+  pure (Vec2.new j i, x)
 
 type Grid = HashMap (Vec2 Int) Int

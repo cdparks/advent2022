@@ -1,8 +1,11 @@
 {-# LANGUAGE StrictData #-}
 
 module Advent.Vec2
-  ( Vec2(..)
+  ( Vec2
   , Point2
+  , new
+  , x
+  , y
   , zero
   , fromPair
   , toPair
@@ -14,21 +17,36 @@ module Advent.Vec2
 
 import Advent.Prelude
 
--- | 2D vector
+-- | Opaque 2D vector
 data Vec2 a = Vec2
-  { x :: a
-  , y :: a
+  { _x :: a
+  , _y :: a
   }
   deriving stock (Eq, Ord, Generic, Functor, Foldable, Traversable)
   deriving anyclass (Hashable)
 
+-- | Exposed constructor
+new :: a -> a -> Vec2 a
+new = Vec2
+{-# INLINE new #-}
+
+-- | Lens for @x@ component
+x :: Lens' (Vec2 a) a
+x = lens _x $ \s b -> s { _x = b }
+{-# INLINE x #-}
+
+-- | Lens for @y@ component
+y :: Lens' (Vec2 a) a
+y = lens _y $ \s b -> s { _y = b }
+{-# INLINE y #-}
+
 instance Show a => Show (Vec2 a) where
-  showsPrec _ Vec2 {..}
-    = showChar '('
-    . shows x
-    . showString ", "
-    . shows y
-    . showChar ')'
+  showsPrec d Vec2 {..}
+    = showParen (d > 10)
+    $ showString "new"
+    . showsPrec (d + 1) _x
+    . showChar ' '
+    . showsPrec (d + 1) _y
 
 -- | Use vector as a point
 type Point2 = Vec2
@@ -69,7 +87,7 @@ fromPair = uncurry Vec2
 
 -- | Convert 'Vec2' to pair
 toPair :: forall a. Vec2 a -> (a, a)
-toPair Vec2{..} = (x, y)
+toPair Vec2{..} = (_x, _y)
 {-# INLINE toPair #-}
 
 zero :: forall a. Num a => Vec2 a

@@ -74,8 +74,9 @@ import Data.Void as X (Void)
 import Data.Word as X
 import Debug.Trace as X
 import GHC.Generics as X (Generic)
+import Lens.Micro as X
 import Numeric.Natural as X
-import Safe as X
+import Safe as X hiding (at)
 import qualified System.Environment as Env
 import System.FilePath as X
 import Test.Hspec as X hiding (example)

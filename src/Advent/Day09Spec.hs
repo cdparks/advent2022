@@ -8,7 +8,7 @@ import Advent.Prelude
 
 import Advent.Input
 import Advent.Parse
-import Advent.Vec2 (Vec2(..), zero)
+import Advent.Vec2 (Vec2, zero)
 import qualified Advent.Vec2 as Vec2
 import Data.Map.Strict ((!))
 import qualified Data.Map.Strict as Map
@@ -60,8 +60,8 @@ solve n = Set.size . snd . flip execState start . traverse_ step
   -- Move this element if it's more than 1 space away
   moveTail i = do
     area <- gets fst
-    let d@(Vec2 dx dy) = area ! (i - 1) - area ! i
-    when (abs dx > 1 || abs dy > 1) $
+    let d = area ! (i - 1) - area ! i
+    when (abs (d ^. Vec2.x) > 1 || abs (d ^. Vec2.y) > 1) $
       move i $ signum d
 
 -- | One command per line
