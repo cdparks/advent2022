@@ -13,6 +13,7 @@ module Advent.Vec2
   , down
   , left
   , right
+  , neighbors4
   ) where
 
 import Advent.Prelude
@@ -43,7 +44,7 @@ y = lens _y $ \s b -> s { _y = b }
 instance Show a => Show (Vec2 a) where
   showsPrec d Vec2 {..}
     = showParen (d > 10)
-    $ showString "new"
+    $ showString "Vec2.new "
     . showsPrec (d + 1) _x
     . showChar ' '
     . showsPrec (d + 1) _y
@@ -90,22 +91,32 @@ toPair :: forall a. Vec2 a -> (a, a)
 toPair Vec2{..} = (_x, _y)
 {-# INLINE toPair #-}
 
+-- | Convenience zero value
 zero :: forall a. Num a => Vec2 a
 zero = pure 0
 {-# INLINE zero #-}
 
+-- | Unit vector up
 up :: forall a. Num a => Vec2 a
 up = Vec2 0 1
 {-# INLINE up #-}
 
+-- | Unit vector down
 down :: forall a. Num a => Vec2 a
 down = Vec2 0 (-1)
 {-# INLINE down #-}
 
+-- | Unit vector left
 left :: forall a. Num a => Vec2 a
 left = Vec2 (-1) 0
 {-# INLINE left #-}
 
+-- | Unit vector right
 right :: forall a. Num a => Vec2 a
 right = Vec2 1 0
 {-# INLINE right #-}
+
+-- | Cardinal neighbors of point
+neighbors4 :: forall a. Num a => Vec2 a -> [Vec2 a]
+neighbors4 p = (p +) <$> [up, down, left, right]
+{-# INLINE neighbors4 #-}

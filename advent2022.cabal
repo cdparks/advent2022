@@ -37,6 +37,7 @@ library
       Advent.Day09Spec
       Advent.Day10Spec
       Advent.Day11Spec
+      Advent.Day12Spec
       Advent.Input
       Advent.Interval
       Advent.List
@@ -92,6 +93,7 @@ library
     , microlens-mtl
     , monoidal-containers
     , mtl
+    , pqueue
     , safe
     , split
     , text

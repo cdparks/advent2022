@@ -70,6 +70,7 @@ library:
     - microlens-mtl
     - monoidal-containers
     - mtl
+    - pqueue
     - safe
     - split
     - text
