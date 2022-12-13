@@ -38,6 +38,7 @@ library
       Advent.Day10Spec
       Advent.Day11Spec
       Advent.Day12Spec
+      Advent.Day13Spec
       Advent.Input
       Advent.Interval
       Advent.List
