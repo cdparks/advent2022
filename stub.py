@@ -48,24 +48,25 @@ template = '''module Advent.Day{day:02}Spec
 import Advent.Prelude
 
 import Advent.Input
+import Advent.Parse
 
 spec :: Spec
-spec = reading {day} $ do
+spec = parsing takeText {day} $ do
   it "1" $ \\Input{{..}} -> do
     pendingWith "not implemented"
-    part1 example `shouldBe` ""
-    part1 problem `shouldBe` ""
+    part1 example `shouldBe` 1
+    part1 problem `shouldBe` 1
 
   it "2" $ \\Input{{..}} -> do
     pendingWith "not implemented"
-    part2 example `shouldBe` ""
-    part2 problem `shouldBe` ""
+    part2 example `shouldBe` 2
+    part2 problem `shouldBe` 2
 
-part1 :: Text -> Text
-part1 = id
+part1 :: a -> Int
+part1 = const $ negate 1
 
-part2 :: Text -> Text
-part2 = id
+part2 :: a -> Int
+part2 = const $ negate 2
 '''
 
 if __name__ == '__main__':
