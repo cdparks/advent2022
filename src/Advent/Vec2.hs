@@ -6,6 +6,8 @@ module Advent.Vec2
   , new
   , x
   , y
+  , x0
+  , y0
   , zero
   , fromPair
   , toPair
@@ -95,6 +97,16 @@ toPair Vec2{..} = (_x, _y)
 zero :: forall a. Num a => Vec2 a
 zero = pure 0
 {-# INLINE zero #-}
+
+-- | Constructor for @(x, 0)@
+y0 :: Int -> Vec2 Int
+y0 _x = new _x 0
+{-# INLINE y0 #-}
+
+-- | Constructor for @(0, y)@
+x0 :: Int -> Vec2 Int
+x0 _y = new 0 _y
+{-# INLINE x0 #-}
 
 -- | Unit vector up
 up :: forall a. Num a => Vec2 a

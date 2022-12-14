@@ -10,6 +10,7 @@ module Advent.Prelude
   , readIO
   , tshow
   , unwrap
+  , minmax
   ) where
 
 import Prelude as X hiding
@@ -127,3 +128,9 @@ getProgName = pack <$> Env.getProgName
 -- | Crash with message
 crash :: Text -> IO a
 crash = throwIO . userError . unpack
+
+-- | Calculate 'min' and 'max' together
+minmax :: Ord a => a -> a -> (a, a)
+minmax x y
+  | x <= y = (x, y)
+  | otherwise = (y, x)
