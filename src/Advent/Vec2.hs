@@ -16,6 +16,7 @@ module Advent.Vec2
   , left
   , right
   , neighbors4
+  , manhattan
   ) where
 
 import Advent.Prelude
@@ -132,3 +133,7 @@ right = Vec2 1 0
 neighbors4 :: forall a. Num a => Vec2 a -> [Vec2 a]
 neighbors4 p = (p +) <$> [up, down, left, right]
 {-# INLINE neighbors4 #-}
+
+manhattan :: Vec2 Int -> Vec2 Int -> Int
+manhattan p q = uncurry (+) $ toPair $ abs $ p - q
+{-# INLINE manhattan #-}

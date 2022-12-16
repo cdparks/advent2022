@@ -3,10 +3,13 @@
 module Advent.Interval
   ( Interval
   , new
+  , toPair
+  , fromPair
   , lo
   , hi
   , overlaps
   , contains
+  , merge
   ) where
 
 import Advent.Prelude hiding (combine)
@@ -37,6 +40,14 @@ new x y
   | otherwise = Interval y x
 {-# INLINE new #-}
 
+fromPair :: (Int, Int) -> Interval
+fromPair = uncurry new
+{-# INLINE fromPair #-}
+
+toPair :: Interval -> (Int, Int)
+toPair Interval{..} = (_lo, _hi)
+{-# INLINE toPair #-}
+
 -- | Low end of the interval
 lo :: Interval -> Int
 lo = _lo
@@ -56,3 +67,17 @@ overlaps lhs rhs = max (lo lhs) (lo rhs) <= min (hi lhs) (hi rhs)
 contains :: Interval -> Interval -> Bool
 contains lhs rhs = lo lhs <= lo rhs && hi rhs <= hi lhs
 {-# INLINE contains #-}
+
+-- | Combine overlapping intervals
+merge :: [Interval] -> [Interval]
+merge = start . sortOn _lo
+ where
+  start = \case
+    [] -> []
+    x:xs -> go x xs
+
+  go lhs@(Interval xlo xhi) = \case
+    [] -> [lhs]
+    rhs@(Interval ylo yhi) : xs
+      | ylo <= xhi -> go (new xlo $ max xhi yhi) xs
+      | otherwise -> lhs : go rhs xs
